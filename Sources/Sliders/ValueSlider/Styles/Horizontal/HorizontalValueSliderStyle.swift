@@ -19,6 +19,9 @@ public struct HorizontalValueSliderStyle<Track: View, Thumb: View>: ValueSliderS
 
         return GeometryReader { geometry in
             ZStack {
+#if os(tvOS)
+                track
+#else
                 if self.options.contains(.interactiveTrack) {
                     track.gesture(
                         DragGesture(minimumDistance: 0)
@@ -41,7 +44,8 @@ public struct HorizontalValueSliderStyle<Track: View, Thumb: View>: ValueSliderS
                 } else {
                     track
                 }
-
+#endif
+                
                 ZStack {
                     self.thumb
                         .frame(width: self.thumbSize.width, height: self.thumbSize.height)
@@ -57,6 +61,7 @@ public struct HorizontalValueSliderStyle<Track: View, Thumb: View>: ValueSliderS
                     ),
                     y: geometry.size.height / 2
                 )
+#if !os(tvOS)
                 .gesture(
                     DragGesture(minimumDistance: 0)
                         .onChanged { gestureValue in
@@ -88,6 +93,7 @@ public struct HorizontalValueSliderStyle<Track: View, Thumb: View>: ValueSliderS
                             configuration.onEditingChanged(false)
                         }
                 )
+#endif
             }
             .frame(height: geometry.size.height)
         }

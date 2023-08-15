@@ -87,7 +87,9 @@ private struct HorizontalValueSlidersPreview: View {
     
     var body: some View {
         VStack {
+#if !os(tvOS)
             Slider(value: $value1)
+#endif
 
             ValueSlider(value: $value1)
 

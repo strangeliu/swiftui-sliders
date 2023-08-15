@@ -45,6 +45,7 @@ public struct HorizontalRangeSliderStyle<Track: View, LowerThumb: View, UpperThu
                     ),
                     y: geometry.size.height / 2
                 )
+#if !os(tvOS)
                 .onTapGesture {
                     self.onSelectLower()
                 }
@@ -87,6 +88,7 @@ public struct HorizontalRangeSliderStyle<Track: View, LowerThumb: View, UpperThu
                             configuration.onEditingChanged(false)
                         }
                 )
+#endif
 
                 ZStack {
                     self.upperThumb
@@ -103,6 +105,7 @@ public struct HorizontalRangeSliderStyle<Track: View, LowerThumb: View, UpperThu
                     ),
                     y: geometry.size.height / 2
                 )
+#if !os(tvOS)
                 .onTapGesture {
                     self.onSelectUpper()
                 }
@@ -145,6 +148,7 @@ public struct HorizontalRangeSliderStyle<Track: View, LowerThumb: View, UpperThu
                             configuration.onEditingChanged(false)
                         }
                 )
+#endif
 
             }
             .frame(height: geometry.size.height)

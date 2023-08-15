@@ -19,6 +19,9 @@ public struct VerticalValueSliderStyle<Track: View, Thumb: View>: ValueSliderSty
 
         return GeometryReader { geometry in
             ZStack {
+#if os(tvOS)
+                track
+#else
                 if self.options.contains(.interactiveTrack) {
                     track.gesture(
                         DragGesture(minimumDistance: 0)
@@ -41,6 +44,7 @@ public struct VerticalValueSliderStyle<Track: View, Thumb: View>: ValueSliderSty
                 } else {
                     track
                 }
+#endif
 
                 ZStack {
                     self.thumb
@@ -57,6 +61,7 @@ public struct VerticalValueSliderStyle<Track: View, Thumb: View>: ValueSliderSty
                         trailingOffset: self.thumbSize.height / 2
                     )
                 )
+#if !os(tvOS)
                 .gesture(
                     DragGesture(minimumDistance: 0)
                         .onChanged { gestureValue in
@@ -88,6 +93,7 @@ public struct VerticalValueSliderStyle<Track: View, Thumb: View>: ValueSliderSty
                             configuration.onEditingChanged(false)
                         }
                 )
+#endif
             }
             .frame(width: geometry.size.width)
         }

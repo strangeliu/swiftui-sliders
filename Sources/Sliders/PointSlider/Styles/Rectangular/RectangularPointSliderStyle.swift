@@ -21,6 +21,9 @@ public struct RectangularPointSliderStyle<Track: View, Thumb: View>: PointSlider
 
         return GeometryReader { geometry in
             ZStack {
+#if os(tvOS)
+                track
+#else
                 if self.options.contains(.interactiveTrack) {
                     track.gesture(
                         DragGesture(minimumDistance: 0)
@@ -55,6 +58,7 @@ public struct RectangularPointSliderStyle<Track: View, Thumb: View>: PointSlider
                 } else {
                     track
                 }
+#endif
 
                 ZStack {
                     self.thumb
@@ -78,6 +82,7 @@ public struct RectangularPointSliderStyle<Track: View, Thumb: View>: PointSlider
                         trailingOffset: self.thumbSize.height / 2
                     )
                 )
+#if !os(tvOS)
                 .gesture(
                     DragGesture()
                         .onChanged { gestureValue in
@@ -129,7 +134,7 @@ public struct RectangularPointSliderStyle<Track: View, Thumb: View>: PointSlider
                             configuration.onEditingChanged(false)
                         }
                 )
-
+                #endif
             }
             .frame(width: geometry.size.width, height: geometry.size.height)
         }

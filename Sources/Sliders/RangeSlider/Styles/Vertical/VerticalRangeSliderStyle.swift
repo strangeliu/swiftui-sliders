@@ -42,6 +42,7 @@ public struct VerticalRangeSliderStyle<Track: View, LowerThumb: View, UpperThumb
                         trailingOffset: self.lowerThumbSize.height / 2
                     )
                 )
+#if !os(tvOS)
                 .gesture(
                     DragGesture()
                         .onChanged { gestureValue in
@@ -79,6 +80,7 @@ public struct VerticalRangeSliderStyle<Track: View, LowerThumb: View, UpperThumb
                             configuration.onEditingChanged(false)
                         }
                 )
+#endif
 
                 ZStack {
                     self.upperThumb
@@ -95,6 +97,7 @@ public struct VerticalRangeSliderStyle<Track: View, LowerThumb: View, UpperThumb
                         trailingOffset: self.upperThumbSize.height / 2
                     )
                 )
+#if !os(tvOS)
                 .gesture(
                     DragGesture()
                         .onChanged { gestureValue in
@@ -132,6 +135,7 @@ public struct VerticalRangeSliderStyle<Track: View, LowerThumb: View, UpperThumb
                             configuration.onEditingChanged(false)
                         }
                 )
+#endif
 
             }
             .frame(width: geometry.size.width)
